@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Xbyte Secure Login</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=UnifrakturCook:wght@700&family=Nosifer&display=swap"
+    rel="stylesheet" />
+  <!-- Font Awesome -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: radial-gradient(circle at center, #000 60%, #020202 100%);
+      color: #00ff88;
+      font-family: 'UnifrakturCook', cursive;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      background: repeating-linear-gradient(90deg,
+          rgba(0, 255, 80, 0.03) 0px,
+          rgba(0, 255, 80, 0.03) 2px,
+          transparent 2px,
+          transparent 4px);
+      animation: moveBG 15s linear infinite;
+      z-index: 0;
+    }
+
+    @keyframes moveBG {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .boot-text {
+      font-family: monospace;
+      color: #00ff88;
+      text-shadow: 0 0 8px #00ff88;
+      font-size: 14px;
+      white-space: pre-line;
+      opacity: 0.9;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .card {
+      background: rgba(0, 20, 0, 0.8);
+      border: 1px solid rgba(0, 255, 100, 0.3);
+      backdrop-filter: blur(8px);
+      padding: 30px 24px;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 400px;
+      z-index: 2;
+      text-align: center;
+      box-shadow: 0 0 25px rgba(0, 255, 120, 0.3);
+      animation: fadeIn 1s ease;
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon {
+      font-size: 34px;
+      color: #00ff88;
+      margin-bottom: 10px;
+      text-shadow: 0 0 10px #00ff88;
+    }
+
+    .title {
+      font-size: 32px;
+      font-family: 'Nosifer', cursive;
+      color: #00ff88;
+      text-shadow: 0 0 10px #00ff88;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #00cc66;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 25px;
+    }
+
+    .form-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .form-group i {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00ff88;
+    }
+
+    input {
+      width: 100%;
+      padding: 14px 14px 14px 38px;
+      border-radius: 10px;
+      border: 1px solid #00ff88;
+      background: #000;
+      color: #00ff88;
+      font-size: 14px;
+      font-weight: 500;
+      outline: none;
+      transition: 0.3s ease;
+      box-shadow: 0 0 8px rgba(0, 255, 120, 0.1);
+    }
+
+    input:focus {
+      border-color: #00ffaa;
+      box-shadow: 0 0 15px rgba(0, 255, 120, 0.5);
+    }
+
+    button {
+      width: 100%;
+      padding: 14px;
+      font-size: 15px;
+      background: linear-gradient(135deg, #003300, #001a00);
+      color: #00ff88;
+      font-weight: 600;
+      border: 1px solid #00ff88;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      font-family: 'Nosifer', cursive;
+      text-shadow: 0 0 8px #00ff88;
+      box-shadow: 0 0 12px rgba(0, 255, 80, 0.3);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 18px rgba(0, 255, 80, 0.8);
+    }
+
+    .buy-access {
+      margin-top: 16px;
+      display: inline-block;
+      font-size: 13px;
+      background: #003300;
+      padding: 10px 18px;
+      color: #00ff88;
+      border-radius: 8px;
+      font-weight: 500;
+      text-decoration: none;
+      border: 1px solid #00ff88;
+      box-shadow: 0 0 12px rgba(0, 255, 80, 0.3);
+      font-family: Arial, sans-serif;
+      transition: 0.3s ease;
+    }
+
+    .buy-access:hover {
+      background: #005500;
+      box-shadow: 0 0 18px rgba(0, 255, 80, 0.6);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="boot-text" id="bootText"></div>
+
+  <div class="card" id="loginCard">
+    <div class="icon"><i class="fas fa-shield-halved"></i></div>
+    <div class="title">Xbyte Secure</div>
+    <div class="subtitle">Xbyte Secure made by rizxbyte</div>
+
+    <div class="form-group">
+      <i class="fas fa-user"></i>
+      <input id="username" type="text" placeholder="Username" required />
+    </div>
+    <div class="form-group">
+      <i class="fas fa-key"></i>
+      <input id="password" type="password" placeholder="Password" required />
+    </div>
+    <button id="loginBtn">
+      <i class="fas fa-terminal" style="margin-right: 8px;"></i>
+      — ACCESS —
+      <i class="fas fa-terminal" style="margin-left: 8px;"></i>
+    </button>
+
+    <a class="buy-access" href="https://t.me/rizxbyte" target="_blank">
+      <i class="fas fa-lock"></i> Request Access Key
+    </a>
+  </div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBofJ8AeSuqU8vSqiOvNq_t3weLxyxrp-k",
+      databaseURL: "https://rizxbyte-96155-default-rtdb.asia-southeast1.firebasedatabase.app",
+      projectId: "rizxbyte-96155"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+
+    const bootLines = [
+      "Initializing Xbyte Secure System...",
+      "Verifying integrity modules...",
+      "Checking server connection...",
+      "Access ready.",
+      "Loading user interface..."
+    ];
+
+    const bootText = document.getElementById("bootText");
+    const loginCard = document.getElementById("loginCard");
+
+    let lineIndex = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+      if (lineIndex < bootLines.length) {
+        if (charIndex < bootLines[lineIndex].length) {
+          bootText.textContent += bootLines[lineIndex].charAt(charIndex);
+          charIndex++;
+          setTimeout(typeLine, 40);
+        } else {
+          bootText.textContent += "\n";
+          charIndex = 0;
+          lineIndex++;
+          setTimeout(typeLine, 400);
+        }
+      } else {
+        setTimeout(() => {
+          bootText.style.display = "none";
+          loginCard.style.display = "block";
+        }, 800);
+      }
+    }
+
+    typeLine();
+
+    document.getElementById("loginBtn").onclick = async () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const uid = btoa(navigator.userAgent).slice(0, 16);
+
+      if (!username || !password) return alert("Isi semua kolom!");
+
+      const ref = db.ref("users");
+      ref.once("value", snapshot => {
+        let found = false;
+        snapshot.forEach(data => {
+          const user = data.child("user").val();
+          const pass = data.child("pass").val();
+          const status = data.child("status").val();
+          const expired = data.child("expired").val();
+          const akses = data.child("akses").val();
+          const uid1 = data.child("uid1").val();
+          const uid2 = data.child("uid2").val();
+
+          if (user === username && pass === password) {
+            found = true;
+            if (status !== "active") return alert("Account disabled!");
+
+            const expDate = new Date(expired.split("-").reverse().join("-"));
+            if (new Date() > expDate) return alert("Account expired on " + expired);
+
+            if (akses === "1") {
+              if (!uid1 || uid1 === "null" || uid1 === uid) {
+                db.ref("users/" + data.key).update({ uid1: uid });
+                alert("Login success (1 Device Mode)");
+              } else {
+                alert("Device access full!");
+              }
+            } else if (akses === "2") {
+              if ([uid1, uid2].includes(uid)) {
+                alert("Login success (2 Device Mode)");
+              } else if (!uid1 || uid1 === "null") {
+                db.ref("users/" + data.key).update({ uid1: uid });
+                alert("Login success (added as Device 1)");
+                Android.openRomActivity();
+              } else if (!uid2 || uid2 === "null") {
+                db.ref("users/" + data.key).update({ uid2: uid });
+                alert("Login success (added as Device 2)");
+                Android.openRomActivity();
+              } else {
+                alert("Device access full!");
+              }
+            } else if (akses === "∞") {
+              alert("Login success (Unlimited Mode)");
+              Android.openRomActivity();
+            } else {
+              alert("Invalid access type");
+            }
+          }
+        });
+        if (!found) alert("Invalid username or password!");
+      });
+    };
+  </script>
+</body>
+</html>
